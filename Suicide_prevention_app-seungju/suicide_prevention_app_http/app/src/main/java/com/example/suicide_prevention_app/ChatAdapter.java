@@ -42,13 +42,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         Message message = messageList.get(position);
         holder.bind(message);
 
-        // 채팅 메시지가 챗봇의 메시지일 경우 오른쪽으로 정렬
+        // 채팅 메시지가 챗봇의 메시지일 경우 왼쪽으로 정렬
         if (!message.isUserMessage()) {
-            holder.messageText.setGravity(Gravity.END); // 여기서 Gravity.END로 설정
+            holder.messageText.setGravity(Gravity.START); // 여기서 Gravity.START로 설정
             holder.messageText.setTypeface(Typeface.createFromAsset(holder.messageText.getContext().getAssets(), "font/pretty.ttf"));   // 폰트 (글씨체로 변경)
 
         } else {
-            holder.messageText.setGravity(Gravity.START); // 여기서 Gravity.START로 설정
+            holder.messageText.setGravity(Gravity.END); // 여기서 Gravity.END로 설정
             holder.messageText.setTypeface(Typeface.createFromAsset(holder.messageText.getContext().getAssets(), "font/pretty.ttf"));   // 폰트 (글씨체로 변경)
         }
 

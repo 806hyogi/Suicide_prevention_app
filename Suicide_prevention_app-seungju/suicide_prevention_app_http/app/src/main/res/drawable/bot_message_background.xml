@@ -2,7 +2,7 @@
     <solid android:color="#FFF4F7" />
     <corners android:topLeftRadius="16dp"
         android:topRightRadius="16dp"
-        android:bottomLeftRadius="16dp" /> <!-- 우측 하단 빼고 둥글게 -->
+        android:bottomRightRadius="16dp" /> <!-- 우측 하단 빼고 둥글게 -->
     <padding
         android:left="16dp"
         android:top="8dp"
