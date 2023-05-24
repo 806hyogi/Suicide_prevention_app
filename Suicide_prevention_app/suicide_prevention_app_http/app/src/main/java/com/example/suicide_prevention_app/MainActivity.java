@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         callButton = findViewById(R.id.call_button);
 
         /* 전화 버튼 클릭 이벤트 */
-
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
