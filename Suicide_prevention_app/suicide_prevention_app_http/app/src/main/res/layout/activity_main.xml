@@ -26,6 +26,8 @@
         android:layout_above="@id/input_layout"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
+
+
         android:scrollbars="vertical" />
 
     <LinearLayout
