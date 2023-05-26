@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ChatbotService chatbotService;
 
     private Button callButton;
+    private Button musicButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(chatAdapter);
 
         callButton = findViewById(R.id.call_button);
+        musicButton = findViewById(R.id.music_button);
+
+        /* 움직이는 텍스트 */
+        TextView textLabel = findViewById(R.id.text_label);
+
+        // 가로 이동 애니메이션
+        ObjectAnimator translationX = ObjectAnimator.ofFloat(textLabel, "translationX", 0f, 100f); // 이동 거리 및 방향을 조정하십시오
+        translationX.setDuration(1000); // 애니메이션 지속 시간 (밀리초)
+
+        // 애니메이션 반복 설정
+        translationX.setRepeatCount(ObjectAnimator.INFINITE); // 무한 반복
+        translationX.setRepeatMode(ObjectAnimator.REVERSE); // 앞뒤로 반복
+
+        translationX.start(); // 애니메이션 시작
 
         /* 전화 버튼 클릭 이벤트 */
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 animateButton(callButton);
+            }
+        });
+
+        /* 음악 버튼 클릭 이벤트 */
+        musicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateButton(musicButton);
             }
         });
 
@@ -90,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼) */
+    /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
     private void animateButton(Button button) {
         AnimatorSet animatorSet = new AnimatorSet();
 
