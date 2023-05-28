@@ -1,4 +1,4 @@
-# 🍀 챗봇을 이용한 청소년 자살방지 앱
+# 🍀 챗봇을 이용한 청소년 자살방지 앱 그림(gleam)
 
 ## 📌포트폴리오 설명
 ###### 대한민국 청소년 자살률은 해마다 늘고있습니다. 
@@ -8,7 +8,7 @@
 
 ## 📝기술 스택
 
-* <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">  ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?&style=for-the-badge&logo=Android%20Studio&logoColor=white)
+* <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">  ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?&style=for-the-badge&logo=Android%20Studio&logoColor=white) <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
 
 ## 📝팀원 역할
 |최광혁|한승주|김윤지|
@@ -30,5 +30,6 @@
 * ######
 * ######
 ## 📝라이브러리
-* ##### 
-* ##### 
+* ##### pandas (https://github.com/pandas-dev/pandas)
+* ##### sentence-transformers
+* ##### scikit-learn
