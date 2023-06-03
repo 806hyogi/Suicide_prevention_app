@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- usesCleartextTraffic 설정은 HTTP통신을 전체적으로 허용할 것인가에 대한 여부 -->
     <!-- 실제 배포 전에는 꼭 HTTPS를 사용하도록 바꾸어야 함 -->
+
+    <!-- 전화 권한 허가 -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -26,5 +33,6 @@
             </intent-filter>
         </activity>
         <service android:name=".service.MusicService"/>
+
     </application>
 </manifest>

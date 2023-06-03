@@ -1,12 +1,15 @@
 package com.example.suicide_prevention_app;
 
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -15,13 +18,14 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.suicide_prevention_app.adapter.ChatAdapter;
 import com.example.suicide_prevention_app.chatbot.ChatbotCommunication;
 import com.example.suicide_prevention_app.infrastructure.Message;
-import com.example.suicide_prevention_app.infrastructure.CallPhoneActivity;
 import com.example.suicide_prevention_app.service.MusicService;
 
 import java.util.ArrayList;
@@ -29,6 +33,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // 전화 거는 권한 요청 식별
+    static final int PERMISSIONS_CALL_PHONE = 1;
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private List<Message> messageList;
@@ -36,10 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputText;
     private Button sendButton;
     private ChatbotCommunication chatbotCommunication;
-    private CallPhoneActivity callPhoneActivity;
-
 
     private Button callButton;
+    private String telNum = "tel:1393";
     private Button musicButton;
 
     @Override
@@ -75,22 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         translationX.start(); // 애니메이션 시작
 
-        /* 전화 버튼 클릭 이벤트 */
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                animateButton(callButton);
-            }
-        });
-
-        /* 음악 버튼 클릭 이벤트 */
-        musicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                animateButton(musicButton);
-            }
-        });
-
         /* 버튼 클릭했을때 확대 축소되는 애니메이션 (하트 버튼) */
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +111,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 전화 모양 아이콘 클릭 시, 전화 걸기 메소드 실행
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePhoneCall();
+            }
+        });
+
+        /* 음악 버튼 클릭 이벤트 */
+        musicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateButton(musicButton);
+            }
+        });
+
         // 배경음 인텐트 호출
         startService(new Intent(getApplicationContext(), MusicService.class));
     }
+
     /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
     private void animateButton(Button button) {
         AnimatorSet animatorSet = new AnimatorSet();
@@ -174,25 +181,33 @@ public class MainActivity extends AppCompatActivity {
             addResponseMessage(result);
         }
     }
-    // 만들어둔 액티비티와 클래스를 연결해야 함
-    public class CallPhone {
-        public void callPhoneNumber(String phoneNumber) {
-            // 전화 걸기 인텐트를 생성
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + phoneNumber));
 
-            // 전화 걸기 인텐트를 시작
-            startActivity(intent);
+    // 전화 걸기 메소드
+    private void makePhoneCall() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(telNum));
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_CALL_PHONE);
+        } else {
+            startActivity(callIntent);
+        }
+    }
+
+
+    // 전화 권한 확인
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_CALL_PHONE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            }
         }
     }
 
     // 홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
     @Override
     protected void onUserLeaveHint() {
-        Intent intent = new Intent(getApplicationContext(), MusicService.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        startActivity(intent);
-
         stopService(new Intent(getApplicationContext(), MusicService.class));
         super.onUserLeaveHint();
     }
