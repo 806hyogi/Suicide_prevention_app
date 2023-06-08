@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 "예: 호흡이 힘들어\n" +
                 "   지금 내가 뭘하면 좋을까? \n" +
                 "   재밌는 사진 보여줘\n" +
-                "   기타 증상입력");
+                "   기타 증상 입력");
     }
 
     /* 챗봇이 처음 말할때 쓰는 함수 */
