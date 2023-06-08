@@ -50,15 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private Button callButton;
     private String telNum = "tel:1393";
     private Button musicButton;
-    private ImageView funImage;
-    // 재밌는 사진 URL 배열 초기화
-    private String[] photoUrls = {
-            "https://ibb.co/Z2Z1n1C",
-            "https://ibb.co/jMN1b9L",
-            "https://ibb.co/D7Rc2sm",
-            "https://ibb.co/zX0jbbs",
-            "https://ibb.co/qB89D6T"
-    };
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -82,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         musicButton = findViewById(R.id.music_button);
         final Intent musicServiceIntent = new Intent(this, MusicService.class);
         final boolean[] isMusicPlaying = {false};
-
-        funImage = findViewById(R.id.funImage);
-        String userPhotoInput = "재밌는 사진 보여줘"; // 사용자가 입력한 메시지
 
         /* 움직이는 텍스트 */
         TextView textLabel = findViewById(R.id.text_label);
@@ -155,21 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 배경음 인텐트 호출
         startService(new Intent(getApplicationContext(), MusicService.class));
-
-        if (userPhotoInput.contains("재밌는 사진")) {
-            // 이미지 4개 중 1개 랜덤 출력
-            int randomPhotoIndex = (int) (Math.random() * photoUrls.length);
-            String photoUrl = photoUrls[randomPhotoIndex];
-
-            RequestOptions requestOptions = new RequestOptions()
-                    // 메모리 -> 디스크 순으로 캐시 확인, 모든 이미지에 대하여 캐싱함
-                    .diskCacheStrategy(DiskCacheStrategy.ALL);
-
-            Glide.with(this)
-                    .load(photoUrl)
-                    .apply(requestOptions)
-                    .into(funImage);
-        }
     }
 
     /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
@@ -244,24 +217,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
-//    @Override
-//    protected void onUserLeaveHint() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onUserLeaveHint();
-//    }
+//  홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
+    @Override
+    protected void onUserLeaveHint() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onUserLeaveHint();
+    }
 
-    // 음악 종료
-//    @Override
-//    protected void onDestroy() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onDestroy();
-//    }
+//  음악 종료
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onDestroy();
+    }
 
-    // 뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
-//    @Override
-//    public void onBackPressed() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onBackPressed();
-//    }
+//  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
+    @Override
+    public void onBackPressed() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onBackPressed();
+    }
 }

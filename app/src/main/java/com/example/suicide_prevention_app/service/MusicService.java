@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.example.suicide_prevention_app.R;
 
 public class MusicService extends Service {
-    private MediaPlayer mp;
+    MediaPlayer mp;
 
     @Nullable
     @Override
