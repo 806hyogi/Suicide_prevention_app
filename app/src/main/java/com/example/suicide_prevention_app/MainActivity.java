@@ -214,24 +214,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
-//    @Override
-//    protected void onUserLeaveHint() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onUserLeaveHint();
-//    }
+//     홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
+    @Override
+    protected void onUserLeaveHint() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onUserLeaveHint();
+    }
 
-    // 음악 종료
-//    @Override
-//    protected void onDestroy() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onDestroy();
-//    }
+//     음악 종료
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onDestroy();
+    }
 
-    // 뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
-//    @Override
-//    public void onBackPressed() {
-//        stopService(new Intent(getApplicationContext(), MusicService.class));
-//        super.onBackPressed();
-//    }
+//     뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
+    @Override
+    public void onBackPressed() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onBackPressed();
+    }
 }
