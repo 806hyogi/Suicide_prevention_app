@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private ChatbotCommunication chatbotCommunication;
 
     private Button callButton;
-    private String telNum = "tel:1393";
+    private String telNum = "tel:010000000000";
     private Button musicButton;
+    private Intent musicIntent;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -71,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         callButton = findViewById(R.id.call_button);
         musicButton = findViewById(R.id.music_button);
-        final Intent musicServiceIntent = new Intent(this, MusicService.class);
-        final boolean[] isMusicPlaying = {false};
+        musicIntent = new Intent(this, MusicService.class);
+        final boolean[] isMusicPlaying = {true};
 
         /* 움직이는 텍스트 */
         TextView textLabel = findViewById(R.id.text_label);
@@ -130,19 +132,22 @@ public class MainActivity extends AppCompatActivity {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                animateButton(musicButton);
+                animateButton(musicButton);
 
                 if (isMusicPlaying[0]) {
-                    stopService(musicServiceIntent);
+                    Toast.makeText(getApplicationContext(), "배경음 OFF", Toast.LENGTH_SHORT).show();
+                    stopService(musicIntent);
                 } else {
-                    startService(musicServiceIntent);
+                    Toast.makeText(getApplicationContext(), "배경음 ON", Toast.LENGTH_SHORT).show();
+                    startService(musicIntent);
                 }
                 isMusicPlaying[0] = !isMusicPlaying[0];
             }
         });
 
         // 배경음 인텐트 호출
-        startService(new Intent(getApplicationContext(), MusicService.class));
+        startService(musicIntent);
+
     }
 
     /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
@@ -217,24 +222,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//  홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
+    //  홈 화면에서 어플 종료 시, 음악 꺼짐
     @Override
     protected void onUserLeaveHint() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
         super.onUserLeaveHint();
-    }
-
-//  음악 종료
-    @Override
-    protected void onDestroy() {
         stopService(new Intent(getApplicationContext(), MusicService.class));
-        super.onDestroy();
     }
-
-//  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
+    // 홈 화면 또는 전화 화면으로 이동할 때 음악 멈췄다가, 다시 앱으로 돌아오면 Service 재시작
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(new Intent(getApplicationContext(), MusicService.class));
+    }
+    //  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
     @Override
     public void onBackPressed() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
         super.onBackPressed();
+        stopService(new Intent(getApplicationContext(), MusicService.class));
     }
 }
