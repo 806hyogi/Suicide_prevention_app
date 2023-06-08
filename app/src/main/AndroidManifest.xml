@@ -12,6 +12,9 @@
         android:required="false" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <!-- 사진 가져오기 위한 인터넷 권한 허가 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
