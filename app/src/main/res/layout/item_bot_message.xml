@@ -6,11 +6,11 @@
     android:layout_marginBottom="10dp">
 
 
-<ImageView
+    <ImageView
         android:id="@+id/chatbot_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:contentDescription="Chatbot Image"
         android:src="@drawable/chatbot_image" />
 
