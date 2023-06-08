@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.example.suicide_prevention_app.R;
 
 public class MusicService extends Service {
-    MediaPlayer mp;
+    private MediaPlayer mp;
 
     @Nullable
     @Override
@@ -30,7 +30,8 @@ public class MusicService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         mp.start();
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override

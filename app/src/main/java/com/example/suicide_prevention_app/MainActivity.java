@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -34,7 +35,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     // 전화 거는 권한 요청 식별
-    static final int PERMISSIONS_CALL_PHONE = 1;
+    static final int PERMISSIONS_CALL_PHONE = 0;
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private List<Message> messageList;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         callButton = findViewById(R.id.call_button);
         musicButton = findViewById(R.id.music_button);
+        final Intent musicServiceIntent = new Intent(this, MusicService.class);
+        final boolean[] isMusicPlaying = {false};
 
         /* 움직이는 텍스트 */
         TextView textLabel = findViewById(R.id.text_label);
@@ -120,11 +123,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /* 음악 버튼 클릭 이벤트 */
+        // 음표 모양 아이콘 클릭 시, 배경음 ON/OFF 가능
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animateButton(musicButton);
+//                animateButton(musicButton);
+
+                if (isMusicPlaying[0]) {
+                    stopService(musicServiceIntent);
+                } else {
+                    startService(musicServiceIntent);
+                }
+                isMusicPlaying[0] = !isMusicPlaying[0];
             }
         });
 
@@ -193,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     // 전화 권한 확인
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -206,23 +215,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
-    @Override
-    protected void onUserLeaveHint() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
-        super.onUserLeaveHint();
-    }
+//    @Override
+//    protected void onUserLeaveHint() {
+//        stopService(new Intent(getApplicationContext(), MusicService.class));
+//        super.onUserLeaveHint();
+//    }
 
     // 음악 종료
-    @Override
-    protected void onDestroy() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
-        super.onDestroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        stopService(new Intent(getApplicationContext(), MusicService.class));
+//        super.onDestroy();
+//    }
 
     // 뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
-    @Override
-    public void onBackPressed() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        stopService(new Intent(getApplicationContext(), MusicService.class));
+//        super.onBackPressed();
+//    }
 }
