@@ -54,12 +54,13 @@ public class MainActivity extends AppCompatActivity {
     private Button musicButton;
     private Intent musicIntent;
     private String[] imageUrl = {
-            "https://ibb.co/61BH3QS",
-            "https://ibb.co/4fYSzGb",
-            "https://ibb.co/XFHMGGs",
-            "https://ibb.co/THc3jcb",
+            "https://i.ibb.co/KLw2Mng/fun1.jpg",
+            "https://i.ibb.co/PY9WKn2/fun2.jpg",
+            "https://i.ibb.co/j3tsjjM/fun3.jpg",
+            "https://i.ibb.co/dQBYCBL/fun4.jpg",
             "https://i.ibb.co/w47qN4f/fun6.jpg"
     };
+    String lastShownPhotoUrl = null; // 이전에 보여준 사진 URL을 저장하는 변수
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         callButton = findViewById(R.id.call_button);
         musicButton = findViewById(R.id.music_button);
-        final Intent musicServiceIntent = new Intent(this, MusicService.class);
-        final boolean[] isMusicPlaying = {false};
+        musicIntent = new Intent(this, MusicService.class);
+        final boolean[] isMusicPlaying = {true};
 
         /* 움직이는 텍스트 */
         TextView textLabel = findViewById(R.id.text_label);
@@ -127,6 +128,15 @@ public class MainActivity extends AppCompatActivity {
                         Random photoRandom = new Random();
                         int photoRandomIndex = photoRandom.nextInt(imageUrl.length);
                         String randomImageUrl = imageUrl[photoRandomIndex];
+
+                        if (randomImageUrl.equals(lastShownPhotoUrl)) {
+                            // 방금 보여준 사진과 같은 경우 다른 사진 보여줌
+                            while(randomImageUrl.equals(lastShownPhotoUrl)) {
+                                photoRandomIndex = photoRandom.nextInt(imageUrl.length);
+                                randomImageUrl = imageUrl[photoRandomIndex];
+                            }
+                        }
+                        lastShownPhotoUrl = randomImageUrl; // 이전에 보여준 사진 URL 갱신
 
                         addResponseMessage("", randomImageUrl);
                         inputText.setText("");

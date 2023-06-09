@@ -11,6 +11,7 @@ import okhttp3.Response;
 public class ChatbotCommunication {
     // OkHttpClient 인스턴스 생성
     OkHttpClient client = new OkHttpClient();
+    String url = "http://192.168.0.21:8080/message";
 
     public static final MediaType TEXT = MediaType.get("text/plain; charset=utf-8");
 
@@ -21,7 +22,7 @@ public class ChatbotCommunication {
         실제 디바이스는 http://127.0.0.1:8080/message
         안드로이드 에뮬레이터의 경우는 http://10.0.2.2:8080/message
          */
-        Request request = new Request.Builder().url("http://192.168.0.2:8080/message").post(body).build();
+        Request request = new Request.Builder().url(url).post(body).build();
 
         // 요청 보내고 응답 받기
         Response response;
