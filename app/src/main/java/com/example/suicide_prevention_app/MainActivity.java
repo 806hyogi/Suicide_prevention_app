@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private ChatbotCommunication chatbotCommunication;
 
     private Button callButton;
-    private String telNum = "tel:010000000000";
+    private String telNum = "tel:1393";
     private Button musicButton;
-    private Intent musicIntent;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -73,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         callButton = findViewById(R.id.call_button);
         musicButton = findViewById(R.id.music_button);
-        musicIntent = new Intent(this, MusicService.class);
-        final boolean[] isMusicPlaying = {true};
+        final Intent musicServiceIntent = new Intent(this, MusicService.class);
+        final boolean[] isMusicPlaying = {false};
 
         /* 움직이는 텍스트 */
         TextView textLabel = findViewById(R.id.text_label);
@@ -132,37 +130,19 @@ public class MainActivity extends AppCompatActivity {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animateButton(musicButton);
+//                animateButton(musicButton);
 
                 if (isMusicPlaying[0]) {
-                    Toast.makeText(getApplicationContext(), "배경음 OFF", Toast.LENGTH_SHORT).show();
-                    stopService(musicIntent);
+                    stopService(musicServiceIntent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "배경음 ON", Toast.LENGTH_SHORT).show();
-                    startService(musicIntent);
+                    startService(musicServiceIntent);
                 }
                 isMusicPlaying[0] = !isMusicPlaying[0];
             }
         });
 
         // 배경음 인텐트 호출
-        startService(musicIntent);
-
-        // 챗봇 첫 메시지
-        chatbotSays("안녕하세요! 사용자님을 도와드릴 \n" +
-                "AI 챗봇 그리미입니다.\n" +
-                "아래처럼 입력하시면 도움을 받으실 수 있습니다.\n" +
-                "예: 호흡이 힘들어\n" +
-                "   지금 내가 뭘하면 좋을까? \n" +
-                "   재밌는 사진 보여줘\n" +
-                "   기타 증상 입력");
-    }
-
-    /* 챗봇이 처음 말할때 쓰는 함수 */
-    private void chatbotSays(String message) {
-        messageList.add(new Message(message, false));
-        chatAdapter.notifyItemInserted(messageList.size() - 1);
-        recyclerView.smoothScrollToPosition(messageList.size() - 1);
+        startService(new Intent(getApplicationContext(), MusicService.class));
     }
 
     /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
@@ -237,22 +217,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //  홈 화면에서 어플 종료 시, 음악 꺼짐
+//  홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
     @Override
     protected void onUserLeaveHint() {
-        super.onUserLeaveHint();
         stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onUserLeaveHint();
     }
-    // 홈 화면 또는 전화 화면으로 이동할 때 음악 멈췄다가, 다시 앱으로 돌아오면 Service 재시작
+
+//  음악 종료
     @Override
-    protected void onResume() {
-        super.onResume();
-        startService(new Intent(getApplicationContext(), MusicService.class));
+    protected void onDestroy() {
+        stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onDestroy();
     }
-    //  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
+
+//  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         stopService(new Intent(getApplicationContext(), MusicService.class));
+        super.onBackPressed();
     }
 }

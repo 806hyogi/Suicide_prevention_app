@@ -10,31 +10,35 @@ import androidx.annotation.Nullable;
 import com.example.suicide_prevention_app.R;
 
 public class MusicService extends Service {
-    private MediaPlayer musicPlayer;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        musicPlayer = MediaPlayer.create(this, R.raw.heavenly);
-        musicPlayer.setLooping(true);
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        musicPlayer.start();
-        return START_STICKY; // 시스템에 의해 종료 되면 서비스 다시 실행
-    }
-
-    @Override
-    public void onDestroy() {
-        musicPlayer.stop();
-        musicPlayer.release();
-        super.onDestroy();
-    }
+    MediaPlayer mp;
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        mp = MediaPlayer.create(this, R.raw.heavenly);
+        mp.setLooping(true);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mp.start();
+
+        return START_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        mp.stop();
+        mp.release();
+
+        super.onDestroy();
     }
 }
