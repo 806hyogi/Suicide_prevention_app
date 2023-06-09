@@ -1,0 +1,92 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pastel"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- 전화 버튼 -->
+    <Button
+        android:id="@+id/call_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/circle_button_background"
+        android:drawableStart="@drawable/phone"
+        />
+
+    <!-- 음악 버튼 -->
+    <Button
+        android:id="@+id/music_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_toStartOf="@id/call_button"
+        android:layout_alignTop="@id/call_button"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/circle_button_background"
+        android:drawableStart="@drawable/music"
+        />
+
+    <TextView
+        android:id="@+id/text_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/music_button"
+        android:text="지금 너를 아프게 하는 그일,\n 너는 분명 잘 이겨 낼 거야"
+        android:layout_marginRight="180px"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input_layout"
+        android:layout_below="@+id/text_label"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        />
+
+    <LinearLayout
+        android:id="@+id/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_background"
+        android:padding="8dp"
+        >
+
+        <!-- 하단 입력 text -->
+        <EditText
+            android:id="@+id/input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="메시지 입력"
+            android:background="@drawable/rounded_background"
+            android:padding="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="15dp"
+            />
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/heart_click_effect"
+            android:onClick="onClickSendButton"
+            android:textSize="24sp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
