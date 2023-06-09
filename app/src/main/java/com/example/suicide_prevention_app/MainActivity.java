@@ -144,20 +144,14 @@ public class MainActivity extends AppCompatActivity {
         // 배경음 인텐트 호출
         startService(new Intent(getApplicationContext(), MusicService.class));
 
-        chatbotSays("안녕하세요! 사용자님을 도와드릴 \n" +
+        addResponseMessage("안녕하세요! 사용자님을 도와드릴 \n" +
                 "AI 챗봇 그리미입니다.\n" +
                 "아래처럼 입력하시면 도움을 받으실 수 있습니다.\n" +
                 "예: 호흡이 힘들어\n" +
                 "   지금 내가 뭘하면 좋을까? \n" +
                 "   재밌는 사진 보여줘\n" +
-                "   기타 증상입력");
-    }
+                "   기타 증상 입력", null);
 
-    /* 챗봇이 처음 말할때 쓰는 함수 */
-    private void chatbotSays(String message) {
-        messageList.add(new Message(message, false));
-        chatAdapter.notifyItemInserted(messageList.size() - 1);
-        recyclerView.smoothScrollToPosition(messageList.size() - 1);
     }
 
     /* 버튼 클릭했을때 확대 축소되는 애니메이션 (통화 버튼, 음악 버튼) */
@@ -186,14 +180,14 @@ public class MainActivity extends AppCompatActivity {
         animatorSet.start();
     }
 
-    private void sendMessage(String message) {
-        messageList.add(new Message(message, true));
+    private void sendMessage(String message, String imageUrl) {
+        messageList.add(new Message(message, true, imageUrl));
         chatAdapter.notifyItemInserted(messageList.size() - 1);
         recyclerView.smoothScrollToPosition(messageList.size() - 1);
     }
 
-    private void addResponseMessage(String message) {
-        messageList.add(new Message(message, false));
+    private void addResponseMessage(String message, String imageUrl) {
+        messageList.add(new Message(message, false, imageUrl));
         chatAdapter.notifyItemInserted(messageList.size() - 1);
         recyclerView.smoothScrollToPosition(messageList.size() - 1);
     }
@@ -206,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            addResponseMessage(result);
+            addResponseMessage(result, null);
         }
     }
 
