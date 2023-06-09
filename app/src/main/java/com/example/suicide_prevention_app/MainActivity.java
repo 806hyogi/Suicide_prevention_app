@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Button callButton;
     private String telNum = "tel:01000000000";
     private Button musicButton;
+    private Intent musicIntent;
     private String[] imageUrl = {
             "https://ibb.co/61BH3QS",
             "https://ibb.co/4fYSzGb",
@@ -148,12 +150,14 @@ public class MainActivity extends AppCompatActivity {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                animateButton(musicButton);
+                animateButton(musicButton);
 
                 if (isMusicPlaying[0]) {
-                    stopService(musicServiceIntent);
+                    Toast.makeText(getApplicationContext(), "배경음 OFF", Toast.LENGTH_SHORT).show();
+                    stopService(musicIntent);
                 } else {
-                    startService(musicServiceIntent);
+                    Toast.makeText(getApplicationContext(), "배경음 ON", Toast.LENGTH_SHORT).show();
+                    startService(musicIntent);
                 }
                 isMusicPlaying[0] = !isMusicPlaying[0];
             }
@@ -244,24 +248,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//  홈 화면에서 어플 종료 시, 음악이 꺼지게 만들기
+    //  홈 화면에서 어플 종료 시, 음악 꺼짐
     @Override
     protected void onUserLeaveHint() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
         super.onUserLeaveHint();
+        stopService(new Intent(getApplicationContext(), MusicService.class));
     }
 
-//  음악 종료
+    // 홈 화면 또는 전화 화면으로 이동할 때 음악 멈췄다가, 다시 앱으로 돌아오면 Service 재시작
     @Override
-    protected void onDestroy() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        startService(new Intent(getApplicationContext(), MusicService.class));
     }
 
 //  뒤로 가기 버튼 눌렀을 때 배경음악 멈춤
     @Override
     public void onBackPressed() {
-        stopService(new Intent(getApplicationContext(), MusicService.class));
         super.onBackPressed();
+        stopService(new Intent(getApplicationContext(), MusicService.class));
     }
 }
