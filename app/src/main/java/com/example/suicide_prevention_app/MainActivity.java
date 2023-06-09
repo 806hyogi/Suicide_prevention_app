@@ -34,6 +34,7 @@ import com.example.suicide_prevention_app.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +49,15 @@ public class MainActivity extends AppCompatActivity {
     private ChatbotCommunication chatbotCommunication;
 
     private Button callButton;
-    private String telNum = "tel:1393";
+    private String telNum = "tel:01000000000";
     private Button musicButton;
+    private String[] imageUrl = {
+            "https://ibb.co/61BH3QS",
+            "https://ibb.co/4fYSzGb",
+            "https://ibb.co/XFHMGGs",
+            "https://ibb.co/THc3jcb",
+            "https://i.ibb.co/w47qN4f/fun6.jpg"
+    };
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -111,9 +119,19 @@ public class MainActivity extends AppCompatActivity {
 
                 String input = inputText.getText().toString().trim();
                 if (!input.isEmpty()) {
-                    sendMessage(input);
-                    inputText.setText("");
-                    new SendMessageTask().execute(input);
+                    sendMessage(input, null);
+
+                    if (input.equals("재밌는 사진 보여줘")) {
+                        Random photoRandom = new Random();
+                        int photoRandomIndex = photoRandom.nextInt(imageUrl.length);
+                        String randomImageUrl = imageUrl[photoRandomIndex];
+
+                        addResponseMessage("", randomImageUrl);
+                        inputText.setText("");
+                    } else {
+                        new SendMessageTask().execute(input);
+                        inputText.setText("");
+                    }
                 }
             }
         });
