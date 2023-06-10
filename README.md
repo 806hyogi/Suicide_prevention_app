@@ -17,18 +17,12 @@
 |Frontend⚡채팅창UI|Backend⚡AI챗봇|Backend⚡통화, 음악 기능|
 
 ## 📝프로젝트 소개
-* ###### 메인페이지
-
-* ###### 서브페이지
-    ##### 📌
-    
-    ##### 📌
-    
-    ##### 📌
+##### 📌시연영상
+[![Video Label](http://img.youtube.com/vi/NzJUPuY-FAo/0.jpg)](https://youtu.be/NzJUPuY-FAo)
     
 ## 📝프로젝트 실행
-* ######
-* ######
+* ###### android studio emulator
+* ###### build → apk
 ## 📝라이브러리
 * ##### pandas (https://github.com/pandas-dev/pandas)
 * ##### sentence-transformers
