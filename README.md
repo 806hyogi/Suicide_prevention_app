@@ -14,7 +14,7 @@
 |최광혁|한승주|김윤지|
 |:---:|:---:|:---:|
 |![스크린샷 2023-05-28 042355](https://github.com/806hyogi/Nutritional_management_app/assets/101712060/4ad8613a-9008-4817-8269-6b8842e61c02)|![스크린샷 2023-05-28 041146](https://github.com/806hyogi/Nutritional_management_app/assets/101712060/caf89eaa-69f9-420e-b9b0-4f85953da2ec)|![스크린샷 2023-05-28 041214](https://github.com/806hyogi/Nutritional_management_app/assets/101712060/cf3787ca-c49e-461a-8b84-0b86d1bde368)
-|Frontend⚡채팅창UI|Backend⚡AI챗봇|Backend⚡통화, 음악 기능|
+|Frontend⚡채팅창UI|Backend⚡AI챗봇|Backend⚡통화, 음악, 사진 출력 기능|
 
 ## 📝프로젝트 소개
 ##### 📌시연영상
