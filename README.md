@@ -17,9 +17,17 @@
 |Frontend⚡채팅창UI|Backend⚡AI챗봇|Backend⚡통화, 음악, 사진 출력 기능|
 
 ## 📝프로젝트 소개
-##### 📌시연영상
-[![Video Label](http://img.youtube.com/vi/NzJUPuY-FAo/0.jpg)](https://youtu.be/NzJUPuY-FAo)
-    
+* ###### 메인페이지
+  ##### 📌시연영상
+    [![Video Label](http://img.youtube.com/vi/NzJUPuY-FAo/0.jpg)](https://youtu.be/NzJUPuY-FAo)
+  ##### 📌메인화면
+    ![메인](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/2869e042-98dc-4020-b239-c983863304a9)
+  ##### 📌배경음 On, Off 버튼
+    ![배경음](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/54314fed-cd1c-4ba9-b466-dbe0607c8553)
+  ##### 📌자살콜센터 버튼
+    ![전화](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/236f3206-9eb7-4be6-ad4e-9b4831e3a752)
+  ##### 📌재미있는 사진 호출
+    ![재미있는](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/57f5897b-f8df-4432-b541-2e1aeb23b450)
 ## 📝프로젝트 실행
 * ###### android studio emulator
 * ###### build → apk
@@ -27,3 +35,11 @@
 * ##### pandas (https://github.com/pandas-dev/pandas)
 * ##### sentence-transformers
 * ##### scikit-learn
+* ##### 작업한 깃허브: https://tinyurl.com/2cr7gnto
+* ##### PPT: https://tinyurl.com/26jo28fx
+* ##### 말뭉치:https://tinyurl.com/273b8nsq
+* ##### 전화 기능: https://tinyurl.com/2ym5uzwu, https://tinyurl.com/2yq8alnh, https://tinyurl.com/23zepleb
+* ##### 배경음 기능: https://tinyurl.com/25vu93l7, https://tinyurl.com/27v9ms45
+* ##### 사진 출력 기능: https://tinyurl.com/2bzze6dq, https://tinyurl.com/24kl3bon
+* ##### 사진 URL 추출: https://imgbb.com/
+
