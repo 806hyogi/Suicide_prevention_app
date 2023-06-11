@@ -22,6 +22,7 @@
     [![Video Label](http://img.youtube.com/vi/NzJUPuY-FAo/0.jpg)](https://youtu.be/NzJUPuY-FAo)
   ##### 📌메인화면
     ![메인](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/2869e042-98dc-4020-b239-c983863304a9)
+* ###### 주요 기능
   ##### 📌배경음 On, Off 버튼
     ![배경음](https://github.com/806hyogi/Suicide_prevention_app/assets/101712060/54314fed-cd1c-4ba9-b466-dbe0607c8553)
   ##### 📌자살콜센터 버튼
